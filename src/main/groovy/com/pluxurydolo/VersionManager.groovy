@@ -7,11 +7,11 @@ import static com.pluxurydolo.utils.FileUtils.getVersionFile
 
 class VersionManager {
     static void initVersionFile(Project project) {
-        def versionFile = getVersionFile(project)
-        def currentDate = getCurrentDate()
+        File versionFile = getVersionFile(project)
+        String currentDate = getCurrentDate()
 
         if (!versionFile.exists()) {
-            def props = new Properties()
+            Properties props = new Properties()
             props.setProperty('VERSION_MAJOR', '1')
             props.setProperty('VERSION_MINOR', '0')
             props.setProperty('VERSION_PATCH', '0')
@@ -25,15 +25,15 @@ class VersionManager {
     }
 
     static void bumpVersion(Project project) {
-        def props = new Properties()
-        def versionFile = getVersionFile(project)
-        def currentDate = getCurrentDate()
+        Properties props = new Properties()
+        File versionFile = getVersionFile(project)
+        String currentDate = getCurrentDate()
         versionFile.withInputStream { props.load(it) }
 
-        def lastModifiedDate = props.getProperty('LAST_MODIFIED_DATE', currentDate)
-        def major = props.getProperty('VERSION_MAJOR').toInteger()
-        def minor = props.getProperty('VERSION_MINOR').toInteger()
-        def patch = props.getProperty('VERSION_PATCH').toInteger()
+        String lastModifiedDate = props.getProperty('LAST_MODIFIED_DATE', currentDate)
+        int major = props.getProperty('VERSION_MAJOR').toInteger()
+        int minor = props.getProperty('VERSION_MINOR').toInteger()
+        int patch = props.getProperty('VERSION_PATCH').toInteger()
 
         if (lastModifiedDate != currentDate) {
             minor++
@@ -42,7 +42,7 @@ class VersionManager {
             patch++
         }
 
-        def version = "$major.$minor.$patch"
+        String version = "$major.$minor.$patch"
         project.logger.lifecycle("snua New version $version")
 
         props.setProperty('VERSION_MAJOR', major.toString())
@@ -55,8 +55,8 @@ class VersionManager {
     }
 
     static void showVersion(Project project) {
-        def props = new Properties()
-        def versionFile = getVersionFile(project)
+        Properties props = new Properties()
+        File versionFile = getVersionFile(project)
         versionFile.withInputStream { props.load(it) }
 
         project.logger.lifecycle("Version: ${props.getProperty('VERSION')}")

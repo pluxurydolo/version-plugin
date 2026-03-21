@@ -22,7 +22,7 @@ class VersionPlugin implements Plugin<Project> {
             }
         }
 
-        project.tasks.register('bumpVersion') {
+        TaskProvider<Task> bumpVersionTask = project.tasks.register('bumpVersion') {
             group = 'version'
 
             doLast {
@@ -38,12 +38,30 @@ class VersionPlugin implements Plugin<Project> {
             }
         }
 
-        project.tasks.named('publish') {
-            dependsOn project.tasks.named('bumpVersion')
+        project.afterEvaluate {
+            try {
+                def publishTask = project.tasks.named('publish')
+
+                publishTask.configure { task ->
+                    task.dependsOn(bumpVersionTask)
+                }
+            } catch (Exception ignored) {
+            }
         }
 
         project.afterEvaluate {
-            def versionFile = getVersionFile(project)
+            try {
+                def assembleTask = project.tasks.named('assemble')
+
+                assembleTask.configure { task ->
+                    task.dependsOn(bumpVersionTask)
+                }
+            } catch (Exception ignored) {
+            }
+        }
+
+        project.afterEvaluate {
+            File versionFile = getVersionFile(project)
             if (!versionFile.exists()) {
                 initVersionTask.get().actions.forEach { it.execute(initVersionTask.get()) }
             }
@@ -53,10 +71,11 @@ class VersionPlugin implements Plugin<Project> {
     }
 
     private static void setProjectVersion(Project project) {
-        def versionFile = getVersionFile(project)
-        def props = new Properties()
+        File versionFile = getVersionFile(project)
+        Properties props = new Properties()
         versionFile.withInputStream { props.load(it) }
-        def version = props.getProperty('VERSION')
+
+        String version = props.getProperty('VERSION')
         project.version = version
         project.logger.lifecycle("fxpe Project version set to: $version")
     }
