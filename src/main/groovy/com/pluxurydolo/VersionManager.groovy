@@ -43,7 +43,7 @@ class VersionManager {
         }
 
         String version = "$major.$minor.$patch"
-        project.logger.lifecycle("snua New version $version")
+        project.logger.lifecycle("snua New project version: $version")
 
         props.setProperty('VERSION_MAJOR', major.toString())
         props.setProperty('VERSION_MINOR', minor.toString())
