@@ -1,5 +1,6 @@
 package com.pluxurydolo
 
+import com.pluxurydolo.utils.DateUtils
 import org.gradle.api.Project
 
 import static com.pluxurydolo.utils.DateUtils.currentDate
@@ -35,7 +36,7 @@ class VersionManager {
         int minor = props.getProperty('VERSION_MINOR').toInteger()
         int patch = props.getProperty('VERSION_PATCH').toInteger()
 
-        if (lastModifiedDate != currentDate) {
+        if (DateUtils.isAfter(currentDate, lastModifiedDate)) {
             minor++
             patch = 0
         } else {
