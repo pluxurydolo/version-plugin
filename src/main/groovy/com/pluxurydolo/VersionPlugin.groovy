@@ -39,28 +39,6 @@ class VersionPlugin implements Plugin<Project> {
         }
 
         project.afterEvaluate {
-            try {
-                def publishTask = project.tasks.named('publish')
-
-                publishTask.configure { task ->
-                    task.dependsOn(bumpVersionTask)
-                }
-            } catch (Exception ignored) {
-            }
-        }
-
-        project.afterEvaluate {
-            try {
-                def assembleTask = project.tasks.named('assemble')
-
-                assembleTask.configure { task ->
-                    task.dependsOn(bumpVersionTask)
-                }
-            } catch (Exception ignored) {
-            }
-        }
-
-        project.afterEvaluate {
             File versionFile = getVersionFile(project)
             if (!versionFile.exists()) {
                 initVersionTask.get().actions.forEach { it.execute(initVersionTask.get()) }
