@@ -7,7 +7,7 @@ plugins {
 }
 
 group = 'io.github.pluxurydolo'
-version = '1.7.0'
+version = '1.8.0'
 
 java {
     withJavadocJar()
@@ -47,7 +47,7 @@ afterEvaluate {
                     scm {
                         url = 'scm:git:git://github.com/version-plugin.git'
                         connection = 'scm:git:git://github.com/version-plugin.git'
-                        tag = '1.7.0'
+                        tag = '1.8.0'
                     }
                     licenses {
                         license {
