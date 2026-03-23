@@ -18,7 +18,7 @@ class VersionManager {
             props.setProperty('VERSION_PATCH', '0')
             props.setProperty('LAST_MODIFIED_DATE', currentDate)
 
-            versionFile.withOutputStream { props.store(it, "Version file initialized on $currentDate") }
+            versionFile.withOutputStream { props.store(it, null) }
             project.logger.lifecycle('lzlw Version file created with initial version 1.0.0')
         } else {
             project.logger.lifecycle('ludl Version file already exists')
@@ -52,7 +52,7 @@ class VersionManager {
         props.setProperty('VERSION', version)
         props.setProperty('LAST_MODIFIED_DATE', currentDate)
 
-        versionFile.withOutputStream { props.store(it, "Version updated on $currentDate") }
+        versionFile.withOutputStream { props.store(it, null) }
     }
 
     static void showVersion(Project project) {
