@@ -84,8 +84,6 @@ jreleaser {
     project {
         inceptionYear.set '2026'
         author('@pluxurydolo')
-        name = 'version-plugin'
-        description = 'Version Plugin made for personal use'
     }
 
     deploy {
