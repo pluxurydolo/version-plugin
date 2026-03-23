@@ -10,6 +10,7 @@ group = 'io.github.pluxurydolo'
 version = '1.7.0'
 
 java {
+    withJavadocJar()
     withSourcesJar()
     toolchain {
         languageVersion = JavaLanguageVersion.of(25)
@@ -38,7 +39,7 @@ afterEvaluate {
                 pom {
                     name = 'version-plugin'
                     description = 'Version Plugin made for personal use'
-                    url = 'https://upload.wikimedia.org/wikipedia/en/c/ce/Randallkennedybook.jpg'
+                    url = 'https://github.com/pluxurydolo/version-plugin'
                     developers {
                         developer {
                             id = 'pluxurydolo'
@@ -83,6 +84,8 @@ jreleaser {
     project {
         inceptionYear.set '2026'
         author('@pluxurydolo')
+        name = 'version-plugin'
+        description = 'Version Plugin made for personal use'
     }
     deploy {
         maven {
