@@ -33,9 +33,7 @@ gradlePlugin {
 afterEvaluate {
     publishing {
         publications {
-            release(MavenPublication) {
-                from components.java
-
+            withType(MavenPublication).configureEach {
                 pom {
                     name = 'version-plugin'
                     description = 'Version Plugin made for personal use'
@@ -76,17 +74,20 @@ jreleaser {
             skipTag.set true
         }
     }
+
     signing {
         active.set ALWAYS
         armored.set true
         verify.set true
     }
+
     project {
         inceptionYear.set '2026'
         author('@pluxurydolo')
         name = 'version-plugin'
         description = 'Version Plugin made for personal use'
     }
+
     deploy {
         maven {
             mavenCentral.create('sonatype') {
