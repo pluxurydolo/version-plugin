@@ -7,7 +7,7 @@ plugins {
 }
 
 group = 'io.github.pluxurydolo'
-version = '1.8.0'
+version = '1.9.0'
 
 java {
     withJavadocJar()
@@ -38,17 +38,20 @@ afterEvaluate {
                     name = 'version-plugin'
                     description = 'Version Plugin made for personal use'
                     url = 'https://github.com/pluxurydolo/version-plugin'
+
                     developers {
                         developer {
                             id = 'pluxurydolo'
                             name = 'Alexander'
                         }
                     }
+
                     scm {
                         url = 'scm:git:git://github.com/version-plugin.git'
                         connection = 'scm:git:git://github.com/version-plugin.git'
-                        tag = '1.8.0'
+                        tag = '1.9.0'
                     }
+
                     licenses {
                         license {
                             name = 'The Apache License, Version 2.0'
